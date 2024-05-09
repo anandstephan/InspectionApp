@@ -1,10 +1,11 @@
 import React from 'react';
 import {Text, View} from 'react-native';
+import HomeScreen from './Home';
 
 const Completed = () => {
   return (
-    <View>
-      <Text>Completed</Text>
+    <View style={{padding: '2%'}}>
+      <HomeScreen />
     </View>
   );
 };

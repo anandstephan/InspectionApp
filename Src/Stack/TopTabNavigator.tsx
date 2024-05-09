@@ -1,12 +1,9 @@
 import * as React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Home from '../Screens/HomeScreen/Home';
-import Auction from '../Screens/Auction/Auction';
 import All from '../Screens/HomeScreen/All';
 import Miss from '../Screens/HomeScreen/Miss';
 import Completed from '../Screens/HomeScreen/Completed';
 import Today from '../Screens/HomeScreen/Today';
-import Profile from '../Screens/Profile/Profile';
 import {SafeAreaView} from 'react-native';
 
 function TopTabNavigator() {
@@ -17,14 +14,17 @@ function TopTabNavigator() {
         screenOptions={() => ({
           tabBarActiveTintColor: 'black',
           tabBarIndicatorStyle: {
-            backgroundColor: 'black',
+            backgroundColor: 'white',
           },
           tabBarInactiveTintColor: 'black',
-          tabBarStyle: {width: '100%'},
-          tabBarLabelStyle: {
-            fontSize: 11,
-            fontWeight: '900',
+          tabBarStyle: {
             width: '100%',
+          },
+          tabBarLabelStyle: {
+            fontSize: 13,
+            fontWeight: '800',
+            width: '100%',
+            color: 'black',
           },
           swipeEnabled: false,
           lazy: true,

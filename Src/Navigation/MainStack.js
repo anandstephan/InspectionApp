@@ -6,6 +6,7 @@ import {
 import BottomStack from '../Stack/BottomStackNavigator';
 import Home from '../Screens/HomeScreen/Home';
 import Auction from '../Screens/Auction/Auction';
+import ImformationTabNavigator from '../Stack/ImfomationTopNavigator';
 
 function MainStack() {
   const Stack = createStackNavigator();
@@ -18,6 +19,10 @@ function MainStack() {
       <Stack.Screen name="BottomStack" component={BottomStack} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Auction" component={Auction} />
+      <Stack.Screen
+        name="ImformationTabNavigator"
+        component={ImformationTabNavigator}
+      />
     </Stack.Navigator>
   );
 }

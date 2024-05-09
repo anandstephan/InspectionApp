@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {LIGHT_BLUE, THEME_COLOR} from '../utils/Style';
+// import {LIGHT_BLUE, THEME_COLOR} from '../utils/Style';
+
+const LIGHT_BLUE = 'blue';
+const THEME_COLOR = 'black';
 
 // Create a styled component
 export const MainContainer = styled.SafeAreaView`

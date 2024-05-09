@@ -1,13 +1,6 @@
 import * as React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Home from '../Screens/HomeScreen/Home';
-import Auction from '../Screens/Auction/Auction';
-import All from '../Screens/HomeScreen/All';
-import Miss from '../Screens/HomeScreen/Miss';
-import Completed from '../Screens/HomeScreen/Completed';
-import Today from '../Screens/HomeScreen/Today';
-import Profile from '../Screens/Profile/Profile';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import Documents from '../Screens/Imformation/Documents';
 import Engine from '../Screens/Imformation/Engine';
 import Exterior from '../Screens/Imformation/Exterior';
@@ -15,9 +8,21 @@ import Interior from '../Screens/Imformation/Interior';
 import Final from '../Screens/Imformation/Final';
 
 function ImformationTabNavigator() {
-  const Tab = createMaterialImformationTabNavigator();
+  const Tab = createMaterialTopTabNavigator();
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
+      <View
+        style={{padding: 16, backgroundColor: '#1f51fc', paddingTop: '15%'}}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: 'bold',
+            textAlign: 'center',
+            color: 'white',
+          }}>
+          Imformation
+        </Text>
+      </View>
       <Tab.Navigator
         screenOptions={() => ({
           tabBarActiveTintColor: 'black',
@@ -34,13 +39,13 @@ function ImformationTabNavigator() {
           swipeEnabled: false,
           lazy: true,
         })}>
-        <Tab.Screen name="Today" component={Documents} />
+        <Tab.Screen name="Docs" component={Documents} />
         <Tab.Screen name="Engine" component={Engine} />
         <Tab.Screen name="Exterior" component={Exterior} />
         <Tab.Screen name="Interior" component={Interior} />
         <Tab.Screen name="Final" component={Final} />
       </Tab.Navigator>
-    </SafeAreaView>
+    </View>
   );
 }
 
