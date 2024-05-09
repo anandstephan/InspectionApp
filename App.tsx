@@ -11,6 +11,8 @@ import {
 import MainStack from './Src/Navigation/MainStack';
 import Login from './Src/Screens/Login/Login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Provider} from 'react-redux';
+import {store} from './Src/Redux/store/Index';
 
 function App(): React.JSX.Element {
   const [loginTrue, setLoginTrue] = useState(true);
@@ -41,9 +43,11 @@ function App(): React.JSX.Element {
   }, []);
 
   return (
-    <NavigationContainer>
-      <View style={{flex: 1}}>{!loginTrue ? <Login /> : <MainStack />}</View>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <View style={{flex: 1}}>{!loginTrue ? <Login /> : <MainStack />}</View>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
