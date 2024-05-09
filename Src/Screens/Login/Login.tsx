@@ -9,8 +9,11 @@ import {
 } from '../../StyledComponent';
 import {login} from '../../Api/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {isLoggedIn} from '../../Redux/features/GlobalSlice';
 
-const Login = () => {
+const Login = ({}) => {
+  const dispatch = useDispatch();
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
   // console.log("user  =>",isuserLoggedIn)
@@ -61,6 +64,8 @@ const Login = () => {
       const jsonValue = JSON.stringify(res?.data?.data?.data);
       try {
         await AsyncStorage.setItem('user', JSON.stringify(jsonValue));
+        dispatch(isLoggedIn(true));
+        console.log('hi');
       } catch (error) {
         console.log('error - ', error);
         setError(prev => ({
@@ -94,10 +99,11 @@ const Login = () => {
       <ProfileContainer
         style={[
           {
-            marginTop: '-30%',
+            marginTop: '-25%',
             width: '85%',
             justifyContent: 'center',
             alignItems: 'center',
+            height: height / 3,
           },
         ]}>
         <DarkTextLarge

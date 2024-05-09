@@ -9,16 +9,16 @@ const initialState: CounterState = {
   isLoggedIn: false,
 };
 
-export const counterSlice = createSlice({
+export const globalSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    isLoggedIn: state => {
-      state.isLoggedIn = true;
+    isLoggedIn: (state, action) => {
+      state.isLoggedIn = action.payload;
     },
   },
 });
 
-export const {isLoggedIn} = counterSlice.actions;
+export const {isLoggedIn} = globalSlice.actions;
 
-export default counterSlice.reducer;
+export default globalSlice.reducer;

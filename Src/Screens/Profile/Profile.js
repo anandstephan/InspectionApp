@@ -15,10 +15,9 @@ import {
   DarkTextLarge,
 } from '../../StyledComponent';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {useDispatch, useSelector} from 'react-redux';
-import {isLoggedIn} from '../../redux/features/GlobalSlice';
-import {getUserProfileDetails} from '../services/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {isLoggedIn} from '../../Redux/features/GlobalSlice';
 
 const url =
   'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2017%2F08%2F21%2F16%2F03%2Fhenry-cavill-2665842_960_720.jpg&tbnid=eWt1wBjIyk_fLM&vet=10CAIQxiAoAGoXChMIiMPW1M7UggMVAAAAAB0AAAAAEA8..i&imgrefurl=https%3A%2F%2Fpixabay.com%2Fphotos%2Fhenry-cavill-superman-actor-star-2665842%2F&docid=1MmtpgIum4jhyM&w=960&h=636&itg=1&q=henry%20cavill&ved=0CAIQxiAoAGoXChMIiMPW1M7UggMVAAAAAB0AAAAAEA8';
@@ -52,6 +51,7 @@ export default function AccountSection({navigation}) {
 
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Change the header title to "Imformation" when navigating to the Profile screen
@@ -71,7 +71,7 @@ export default function AccountSection({navigation}) {
     try {
       let res = await AsyncStorage.removeItem('user');
       console.log('res => ', res);
-      // dispatch(isLoggedIn(false));
+      dispatch(isLoggedIn(false));
     } catch (e) {
       console.log('error in logged out', e);
     }

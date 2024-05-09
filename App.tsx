@@ -11,41 +11,17 @@ import {
 import MainStack from './Src/Navigation/MainStack';
 import Login from './Src/Screens/Login/Login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Provider} from 'react-redux';
+import {Provider, useDispatch} from 'react-redux';
 import {store} from './Src/Redux/store/Index';
+import Main from './Src/Main';
 
 function App(): React.JSX.Element {
-  const [loginTrue, setLoginTrue] = useState(true);
-
-  useEffect(() => {
-    async function doesUserExist() {
-      try {
-        const jsonValue = await AsyncStorage.getItem('user');
-        if (jsonValue !== null) {
-          const user = JSON.parse(jsonValue);
-          console.log('🚀 ~ doesUserExist ~ user:', typeof user);
-          if (user) {
-            console.log('🚀 ~ doesUserExist ~ user:', user);
-            setLoginTrue(true); // User exists and has a name
-          } else {
-            setLoginTrue(false); // User exists but doesn't have a name
-          }
-        } else {
-          setLoginTrue(false); // User doesn't exist
-        }
-      } catch (error) {
-        console.error('Error checking user existence:', error);
-        setLoginTrue(false); // Return false in case of an error
-      }
-    }
-
-    doesUserExist();
-  }, []);
-
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <View style={{flex: 1}}>{!loginTrue ? <Login /> : <MainStack />}</View>
+        <View style={{flex: 1}}>
+          <Main />
+        </View>
       </NavigationContainer>
     </Provider>
   );
