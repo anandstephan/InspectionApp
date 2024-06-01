@@ -5,7 +5,7 @@ import HomeScreen from './Home';
 const Completed = () => {
   return (
     <View style={{padding: '2%'}}>
-      <HomeScreen />
+      <HomeScreen nav={'completed'} />
     </View>
   );
 };

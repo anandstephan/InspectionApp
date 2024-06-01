@@ -37,7 +37,6 @@ const Login = ({}) => {
   };
 
   const handleClickPass = event => {
-    // event.persist();
     const passwordValue = event.nativeEvent.text;
     setPassword(passwordValue);
     setError(prev => ({...prev, password: ''}));
@@ -63,9 +62,8 @@ const Login = ({}) => {
     if (res != null && res.data?.data?.code == 200) {
       const jsonValue = JSON.stringify(res?.data?.data?.data);
       try {
-        await AsyncStorage.setItem('user', JSON.stringify(jsonValue));
+        await AsyncStorage.setItem('user', jsonValue);
         dispatch(isLoggedIn(true));
-        console.log('hi');
       } catch (error) {
         console.log('error - ', error);
         setError(prev => ({

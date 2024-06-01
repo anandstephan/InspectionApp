@@ -70,7 +70,6 @@ export default function AccountSection({navigation}) {
   const logout = async () => {
     try {
       let res = await AsyncStorage.removeItem('user');
-      console.log('res => ', res);
       dispatch(isLoggedIn(false));
     } catch (e) {
       console.log('error in logged out', e);

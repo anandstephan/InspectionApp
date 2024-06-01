@@ -5,7 +5,7 @@ import HomeScreen from './Home';
 const Today = () => {
   return (
     <View style={{padding: '2%'}}>
-      <HomeScreen />
+      <HomeScreen nav={'today'} />
     </View>
   );
 };

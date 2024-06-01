@@ -5,7 +5,7 @@ import HomeScreen from './Home';
 const All = () => {
   return (
     <View style={{padding: '2%'}}>
-      <HomeScreen />
+      <HomeScreen nav={'all'} />
     </View>
   );
 };
