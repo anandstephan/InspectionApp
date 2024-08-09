@@ -8,12 +8,12 @@ import {
   View,
 } from 'react-native';
 
-import MainStack from './Src/Navigation/MainStack';
-import Login from './Src/Screens/Login/Login';
+import MainStack from './src/Navigation/MainStack';
+import Login from './src/Screens/Login/Login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Provider, useDispatch} from 'react-redux';
-import {store} from './Src/Redux/store/Index';
-import Main from './Src/Main';
+import {store} from './src/Redux/store/Index';
+import Main from './src/Main';
 
 function App(): React.JSX.Element {
   return (

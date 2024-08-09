@@ -60,12 +60,11 @@ const Login = ({}) => {
 
     const res = await login({email: email, password: password});
 
-    if (res != null && res.data?.data?.code == 200) {
-      const jsonValue = JSON.stringify(res?.data?.data?.data);
+    if (res != null && res?.code == 200) {
+      const jsonValue = JSON.stringify(res?.data);
       try {
-        await AsyncStorage.setItem('user', JSON.stringify(jsonValue));
+        await AsyncStorage.setItem('user', jsonValue);
         dispatch(isLoggedIn(true));
-        console.log('hi');
       } catch (error) {
         console.log('error - ', error);
         setError(prev => ({

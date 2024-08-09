@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../Screens/HomeScreen/Home';
-import Auction from '../Screens/Auction/Auction';
+
 import TopTabNavigator from './TopTabNavigator';
 import Profile from '../Screens/Profile/Profile';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,7 +13,7 @@ function BottomStack() {
     <Tab.Navigator
       tabBarShowLabel="false"
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
+        tabBarActiveTintColor: '#FFFFFF',
         // headerShown: false,
         headerTitle: 'Inspection App',
         headerStyle: {
@@ -26,7 +26,7 @@ function BottomStack() {
         },
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
-          backgroundColor: 'black',
+          backgroundColor: 'blue',
         },
       }}>
       <Tab.Screen

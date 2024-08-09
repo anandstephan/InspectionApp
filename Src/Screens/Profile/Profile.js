@@ -8,7 +8,7 @@ import {
   Alert,
   Dimensions,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FadeTextMedium,
   DarkTextMedium,
@@ -22,30 +22,41 @@ import {isLoggedIn} from '../../Redux/features/GlobalSlice';
 const url =
   'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2017%2F08%2F21%2F16%2F03%2Fhenry-cavill-2665842_960_720.jpg&tbnid=eWt1wBjIyk_fLM&vet=10CAIQxiAoAGoXChMIiMPW1M7UggMVAAAAAB0AAAAAEA8..i&imgrefurl=https%3A%2F%2Fpixabay.com%2Fphotos%2Fhenry-cavill-superman-actor-star-2665842%2F&docid=1MmtpgIum4jhyM&w=960&h=636&itg=1&q=henry%20cavill&ved=0CAIQxiAoAGoXChMIiMPW1M7UggMVAAAAAB0AAAAAEA8';
 export default function AccountSection({navigation}) {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    async function getUser() {
+      let user = await AsyncStorage.getItem('user');
+      let parsedUser = JSON.parse(user);
+      console.log('user', parsedUser.name);
+      setUser(parsedUser);
+    }
+    getUser();
+  }, []);
+
   const car_details = [
     {
       key: 'Role',
-      value: 'dataHai',
+      value: user?.role,
     },
     {
       key: 'Name',
-      value: 'dataHai',
+      value: user?.name,
     },
     {
       key: 'E-Mail',
-      value: 'dataHai',
+      value: user?.email,
     },
     {
       key: 'Address',
-      value: 'dataHai',
+      value: user?.address,
     },
     {
       key: 'Location',
-      value: 'dataHai',
+      value: user?.branch,
     },
     {
       key: 'Department',
-      value: 'dataHai',
+      value: user?.department,
     },
   ];
 
@@ -55,7 +66,7 @@ export default function AccountSection({navigation}) {
 
   useEffect(() => {
     // Change the header title to "Imformation" when navigating to the Profile screen
-    navigation.setOptions({headerTitle: 'Imformation'});
+    navigation.setOptions({headerTitle: 'Information'});
   }, []);
 
   const logoutConfirmation = () => {
@@ -115,9 +126,9 @@ export default function AccountSection({navigation}) {
             top: '-15%',
           }}
         />
-        <DarkTextLarge style={{padding: 5}}>{'Vikas Tyagi'}</DarkTextLarge>
+        <DarkTextLarge style={{padding: 5}}>{user?.name}</DarkTextLarge>
         <FadeTextMedium style={{fontWeight: '500'}}>
-          {'Vikas Tyagi@unificars.com'}
+          {user?.email}
         </FadeTextMedium>
         <View
           style={{
