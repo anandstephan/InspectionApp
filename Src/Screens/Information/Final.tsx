@@ -15,7 +15,11 @@ import {documentsForm, submitForm} from '../../Api/Api';
 import HorizontalScroll from '../../CommonComponents/HorizontalScroll';
 import VerticalScroll from '../../CommonComponents/VerticalScroll';
 import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentTab, setValidation} from '../../Redux/features/GlobalSlice';
+import {
+  setCurrentTab,
+  setFinalSection,
+  setValidation,
+} from '../../Redux/features/GlobalSlice';
 
 const Final = () => {
   const route = useRoute();
@@ -23,6 +27,7 @@ const Final = () => {
 
   const [finalTab, setFinalTab] = useState([]);
   const [particularObj, setParticularObj] = useState(null);
+  const finalSection = useSelector(s => s.global.finalSection);
   const dispatch = useDispatch();
   const currentTabName = useSelector(s => s.global.currentTab);
   const onHorizontalHandler = name => {
@@ -43,6 +48,17 @@ const Final = () => {
         setFinalTab(res.data);
         setParticularObj(res.data[0]);
         dispatch(setCurrentTab(res.data[0].name));
+        for (let i = 0; i < res.data.length; i++) {
+          let flag = true;
+          for (let j = 0; j < res.data[i].subfeilds.length; j++) {
+            if (res.data[i].subfeilds[j].value.length === 0) {
+              flag = false;
+              break;
+            }
+          }
+
+          dispatch(setFinalSection({key: res.data[i].name, value: flag}));
+        }
       }
     }
     getData();
@@ -80,6 +96,7 @@ const Final = () => {
       console.log('other', res);
       if (res.data.code === 200) {
         Alert.alert('Unificars Alert', res.data.message);
+        dispatch(setFinalSection({key: res.data.name, value: true}));
       }
     }
   };
@@ -87,7 +104,11 @@ const Final = () => {
   return particularObj !== null ? (
     <View>
       <View style={styles.container}>
-        <HorizontalScroll tab={finalTab} onPress={onHorizontalHandler} />
+        <HorizontalScroll
+          tab={finalTab}
+          onPress={onHorizontalHandler}
+          alreadyFilledSection={finalSection}
+        />
       </View>
       <ScrollView style={{height: Dimensions.get('screen').height / 1.6}}>
         <VerticalScroll

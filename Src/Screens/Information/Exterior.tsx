@@ -15,7 +15,11 @@ import {documentsForm, submitForm} from '../../Api/Api';
 import HorizontalScroll from '../../CommonComponents/HorizontalScroll';
 import VerticalScroll from '../../CommonComponents/VerticalScroll';
 import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentTab} from '../../Redux/features/GlobalSlice';
+import {
+  setCurrentTab,
+  setExteriorSection,
+  setValidation,
+} from '../../Redux/features/GlobalSlice';
 
 const Exterior = () => {
   const route = useRoute();
@@ -23,6 +27,8 @@ const Exterior = () => {
 
   const [exteriorTab, setExteriorTab] = useState([]);
   const [particularObj, setParticularObj] = useState(null);
+  const exteriorSection = useSelector(s => s.global.exteriorSection);
+
   const dispatch = useDispatch();
   const currentTabName = useSelector(s => s.global.currentTab);
 
@@ -44,6 +50,17 @@ const Exterior = () => {
         setExteriorTab(res.data);
         setParticularObj(res.data[0]);
         dispatch(setCurrentTab(res.data[0].name));
+        for (let i = 0; i < res.data.length; i++) {
+          let flag = true;
+          for (let j = 0; j < res.data[i].subfeilds.length; j++) {
+            if (res.data[i].subfeilds[j].value.length === 0) {
+              flag = false;
+              break;
+            }
+          }
+
+          dispatch(setExteriorSection({key: res.data[i].name, value: flag}));
+        }
       }
     }
     getData();
@@ -81,6 +98,8 @@ const Exterior = () => {
       console.log('other', res);
       if (res.data.code === 200) {
         Alert.alert('Unificars Alert', res.data.message);
+        console.log('--->>', res.data.name);
+        dispatch(setExteriorSection({key: res.data.name, value: true}));
       }
     }
   };
@@ -88,7 +107,11 @@ const Exterior = () => {
   return particularObj !== null ? (
     <View>
       <View style={styles.horizontalTabContainer}>
-        <HorizontalScroll tab={exteriorTab} onPress={onHorizontalHandler} />
+        <HorizontalScroll
+          tab={exteriorTab}
+          onPress={onHorizontalHandler}
+          alreadyFilledSection={exteriorSection}
+        />
       </View>
 
       <ScrollView style={{height: Dimensions.get('screen').height / 1.6}}>

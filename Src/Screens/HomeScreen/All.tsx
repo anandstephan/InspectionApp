@@ -22,12 +22,12 @@ const All = () => {
       // console.log('===>res1', res1);
       setLeads(res1?.data?.data);
       setPreserveLead(res1?.data?.data);
-      disptach(setAllCount(res1?.data?.data.length));
+      disptach(setAllCount(res1?.data?.data?.length));
     }
     getData();
   }, []);
   useEffect(() => {
-    if (leads.length !== 0) {
+    if (leads?.length !== 0) {
       console.log(search.length);
 
       const filter = leads.filter(lead =>

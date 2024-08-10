@@ -15,16 +15,21 @@ import {documentsForm, submitForm} from '../../Api/Api';
 import HorizontalScroll from '../../CommonComponents/HorizontalScroll';
 import VerticalScroll from '../../CommonComponents/VerticalScroll';
 import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentTab, setValidation} from '../../Redux/features/GlobalSlice';
+import {
+  setCurrentTab,
+  setEngineSection,
+  setValidation,
+} from '../../Redux/features/GlobalSlice';
 
 const Engine = () => {
   const route = useRoute();
   const {leadId} = route.params;
   const dispatch = useDispatch();
-  const currentTabName = useSelector(s => s.global.currentTab)
+  const currentTabName = useSelector(s => s.global.currentTab);
 
   const [engineTab, setEngineTab] = useState([]);
   const [particularObj, setParticularObj] = useState(null);
+  const engineSection = useSelector(s => s.global.engineSection);
 
   const onHorizontalHandler = name => {
     const result = engineTab.filter(item => item.name === name);
@@ -43,6 +48,17 @@ const Engine = () => {
         setEngineTab(res.data);
         setParticularObj(res.data[0]);
         dispatch(setCurrentTab(res.data[0].name));
+        for (let i = 0; i < res.data.length; i++) {
+          let flag = true;
+          for (let j = 0; j < res.data[i].subfeilds.length; j++) {
+            if (res.data[i].subfeilds[j].value.length === 0) {
+              flag = false;
+              break;
+            }
+          }
+
+          dispatch(setEngineSection({key: res.data[i].name, value: flag}));
+        }
       }
     }
     getData();
@@ -80,6 +96,7 @@ const Engine = () => {
       console.log('other', res);
       if (res.data.code === 200) {
         Alert.alert('Unificars Alert', res.data.message);
+        dispatch(setEngineSection({key: res.data.name, value: true}));
       }
     }
   };
@@ -87,7 +104,11 @@ const Engine = () => {
   return particularObj !== null ? (
     <View>
       <View style={styles.horizontalTabContainer}>
-        <HorizontalScroll tab={engineTab} onPress={onHorizontalHandler} />
+        <HorizontalScroll
+          tab={engineTab}
+          onPress={onHorizontalHandler}
+          alreadyFilledSection={engineSection}
+        />
       </View>
 
       <ScrollView style={{height: Dimensions.get('screen').height / 1.6}}>

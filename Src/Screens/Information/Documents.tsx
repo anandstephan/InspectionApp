@@ -20,7 +20,11 @@ import HorizontalScroll from '../../CommonComponents/HorizontalScroll';
 import VerticalScroll from '../../CommonComponents/VerticalScroll';
 import SubmitHandler from '../../CommonComponents/SubmitHandler';
 import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentTab, setValidation} from '../../Redux/features/GlobalSlice';
+import {
+  setCurrentTab,
+  setDocSection,
+  setValidation,
+} from '../../Redux/features/GlobalSlice';
 
 const Documents = () => {
   const route = useRoute();
@@ -31,6 +35,7 @@ const Documents = () => {
 
   const carFetchData = useSelector(s => s.global.carFetchData);
   const currentTabName = useSelector(s => s.global.currentTab);
+  const docSection = useSelector(s => s.global.docSection);
 
   // console.log('carFetchData', carFetchData);
   const onHorizontalHandler = name => {
@@ -51,6 +56,17 @@ const Documents = () => {
         setDocumentTab(res.data);
         setParticularObj(res.data[0]);
         dispatch(setCurrentTab(res.data[0].name));
+        for (let i = 0; i < res.data.length; i++) {
+          let flag = true;
+          for (let j = 0; j < res.data[i].subfeilds.length; j++) {
+            if (res.data[i].subfeilds[j].value.length === 0) {
+              flag = false;
+              break;
+            }
+          }
+
+          dispatch(setDocSection({key: res.data[i].name, value: flag}));
+        }
       }
     }
     getData();
@@ -101,6 +117,8 @@ const Documents = () => {
         console.log('other', res);
         if (res.data.code === 200) {
           Alert.alert('Unificars Alert', res.data.message);
+          // console.log('kyuuyk', res.data.name);
+          dispatch(setDocSection({key: res.data.name, value: true}));
         }
       }
     }
@@ -110,7 +128,11 @@ const Documents = () => {
     <View>
       <SubmitHandler />
       <View style={styles.horizontalTabContainer}>
-        <HorizontalScroll tab={documentTab} onPress={onHorizontalHandler} />
+        <HorizontalScroll
+          tab={documentTab}
+          onPress={onHorizontalHandler}
+          alreadyFilledSection={docSection}
+        />
       </View>
 
       <ScrollView style={{height: Dimensions.get('screen').height / 1.6}}>

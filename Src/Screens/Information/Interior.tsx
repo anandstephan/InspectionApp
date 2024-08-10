@@ -15,7 +15,11 @@ import {documentsForm, submitForm} from '../../Api/Api';
 import HorizontalScroll from '../../CommonComponents/HorizontalScroll';
 import VerticalScroll from '../../CommonComponents/VerticalScroll';
 import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentTab, setValidation} from '../../Redux/features/GlobalSlice';
+import {
+  setCurrentTab,
+  setInteriorSection,
+  setValidation,
+} from '../../Redux/features/GlobalSlice';
 
 const Interior = () => {
   const route = useRoute();
@@ -25,6 +29,7 @@ const Interior = () => {
   const [particularObj, setParticularObj] = useState(null);
   const dispatch = useDispatch();
 
+  const interiorSection = useSelector(s => s.global.interiorSection);
   const currentTabName = useSelector(s => s.global.currentTab);
 
   const onHorizontalHandler = name => {
@@ -45,6 +50,17 @@ const Interior = () => {
         setInteriorTab(res.data);
         setParticularObj(res.data[0]);
         dispatch(setCurrentTab(res.data[0].name));
+        for (let i = 0; i < res.data.length; i++) {
+          let flag = true;
+          for (let j = 0; j < res.data[i].subfeilds.length; j++) {
+            if (res.data[i].subfeilds[j].value.length === 0) {
+              flag = false;
+              break;
+            }
+          }
+
+          dispatch(setInteriorSection({key: res.data[i].name, value: flag}));
+        }
       }
     }
     getData();
@@ -82,6 +98,7 @@ const Interior = () => {
       console.log('other', res);
       if (res.data.code === 200) {
         Alert.alert('Unificars Alert', res.data.message);
+        dispatch(setInteriorSection({key: res.data.name, value: true}));
       }
     }
   };
@@ -89,7 +106,11 @@ const Interior = () => {
   return particularObj !== null ? (
     <View>
       <View style={styles.container}>
-        <HorizontalScroll tab={interiorTab} onPress={onHorizontalHandler} />
+        <HorizontalScroll
+          tab={interiorTab}
+          onPress={onHorizontalHandler}
+          alreadyFilledSection={interiorSection}
+        />
       </View>
       <ScrollView style={{height: Dimensions.get('screen').height / 1.6}}>
         <VerticalScroll

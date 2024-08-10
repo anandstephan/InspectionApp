@@ -119,7 +119,7 @@ const CustomVideo = ({metaData, setParticularObj}) => {
               const lastValue = subfield.value;
               lastValue.push(base64);
 
-              return {...subfield, value: lastValue};
+              return {...subfield, value: lastValue[0]};
             }
             return subfield;
           });

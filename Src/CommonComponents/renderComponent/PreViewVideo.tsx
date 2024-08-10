@@ -4,7 +4,6 @@ import {ActivityIndicator, Pressable, StyleSheet, View} from 'react-native';
 import Video, {VideoRef} from 'react-native-video';
 
 const PreViewVideo = ({data}) => {
-  console.log(data[0]);
   const videoRef = useRef<VideoRef>(null);
   const [checkVideoPlayedOrNot, setCheckedVideoPlayedOrNot] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -32,7 +31,7 @@ const PreViewVideo = ({data}) => {
           onPress={() => setCheckedVideoPlayedOrNot(!checkVideoPlayedOrNot)}>
           <Video
             source={{
-              uri: data[0].source === undefined ? data[0] : data[0].source,
+              uri: data[0]?.source === undefined ? data[0] : data[0].source,
               // uri: data[0],
             }}
             style={styles.video}
