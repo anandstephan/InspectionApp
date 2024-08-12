@@ -23,6 +23,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   setCurrentTab,
   setDocSection,
+  setSubmitTabStatus,
   setValidation,
 } from '../../Redux/features/GlobalSlice';
 
@@ -76,6 +77,9 @@ const Documents = () => {
     // delete particularObj['subfields'];
     // particularObj['subfeilds'] = undefined;
 
+    dispatch(
+      setSubmitTabStatus({tabName: currentTabName, loadingStatus: true}),
+    );
     // console.log(particularObj);
     let userDetails = await AsyncStorage.getItem('user');
     const parsedUserId = JSON.parse(userDetails).id;
@@ -87,16 +91,16 @@ const Documents = () => {
       if (particularObj?.subfeilds[i]?.value?.length === 0) {
         dispatch(setValidation({name: particularObj.subfeilds[i].name}));
         flag = false;
-        console.log(particularObj.subfeilds[i].name);
+
         break;
       }
     }
-    console.log('falg', flag);
+
     // console.log('llll', particularObj);
 
     if (flag) {
       let requiredObj = {};
-      console.log(particularObj.subfeilds);
+
       particularObj.subfeilds.forEach(item => {
         requiredObj[item.name] = item.value;
       });
@@ -104,24 +108,34 @@ const Documents = () => {
       requiredObj['user_id'] = parsedUserId;
       requiredObj['form_type'] = currentTabName;
       // requiredObj['ownership'] = '1';
-      console.log('MyRequired', requiredObj);
+
       if (requiredObj['form_type'] === 'Registration and Fitness') {
         const res = await submitRegistormFomFitness({
           data: requiredObj,
         });
         if (res.data.code === 200) {
           Alert.alert('Unificars Alert', res.data.message);
+          dispatch(setDocSection({key: res.data.name, value: true}));
+          dispatch(
+            setSubmitTabStatus({tabName: currentTabName, loadingStatus: false}),
+          );
         }
       } else {
         const res = await submitForm({data: requiredObj});
-        console.log('other', res);
+
         if (res.data.code === 200) {
           Alert.alert('Unificars Alert', res.data.message);
           // console.log('kyuuyk', res.data.name);
           dispatch(setDocSection({key: res.data.name, value: true}));
+          dispatch(
+            setSubmitTabStatus({tabName: currentTabName, loadingStatus: false}),
+          );
         }
       }
     }
+    dispatch(
+      setSubmitTabStatus({tabName: currentTabName, loadingStatus: false}),
+    );
   };
 
   return particularObj !== null ? (

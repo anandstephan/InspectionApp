@@ -16,6 +16,7 @@ export interface CounterState {
   interiorSection: Object;
   engineSection: Object;
   finalSection: Object;
+  submitTabStatus: Object;
 }
 
 const initialState: CounterState = {
@@ -33,6 +34,7 @@ const initialState: CounterState = {
   interiorSection: {},
   engineSection: {},
   finalSection: {},
+  submitTabStatus: {},
 };
 
 export const globalSlice = createSlice({
@@ -89,6 +91,10 @@ export const globalSlice = createSlice({
       const {key, value} = action.payload;
       state.finalSection[key] = value;
     },
+    setSubmitTabStatus: (state, action) => {
+      const {tabName, loadingStatus} = action.payload;
+      state.submitTabStatus[tabName] = loadingStatus;
+    },
   },
 });
 
@@ -106,7 +112,8 @@ export const {
   setExteriorSection,
   setEngineSection,
   setInteriorSection,
-  setFinalSection
+  setFinalSection,
+  setSubmitTabStatus,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

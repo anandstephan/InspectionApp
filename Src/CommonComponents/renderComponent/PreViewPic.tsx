@@ -7,6 +7,7 @@ const PreViewPic = ({data, onDelete, onImagePress}) => {
   return (
     <View style={styles.container}>
       {data.map((item, idx) => {
+        console.log('===', item);
         return (
           <View key={idx} style={styles.imageContainer}>
             <Pressable onPress={() => onImagePress(item)}>

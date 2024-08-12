@@ -74,7 +74,7 @@ const CustomVideo = ({metaData, setParticularObj}) => {
         const source = {uri: response.assets[0].uri};
         const finalVideo = await CompressedVideo.compress(source.uri);
         const base64 = await RNFS.readFile(finalVideo, 'base64');
-        console.log(finalVideo, 'finalVideo');
+        // console.log(finalVideo, 'finalVideo');
         setVideo(source);
         setAllVideo(prev => [...prev, {source: source.uri, base64}]);
         setParticularObj(prevState => {
@@ -109,7 +109,7 @@ const CustomVideo = ({metaData, setParticularObj}) => {
         console.log('Response', response);
         const source = {uri: response.assets[0].uri};
         const finalVideo = await CompressedVideo.compress(source.uri);
-        console.log('videoformcamera', finalVideo);
+        // console.log('videoformcamera', finalVideo);
         const base64 = await RNFS.readFile(finalVideo, 'base64');
         setVideo(source);
         setAllVideo(prev => [...prev, {source: source.uri, base64}]);

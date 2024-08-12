@@ -75,7 +75,7 @@ const File = ({metaData, setParticularObj}) => {
         const source = {uri: response.assets[0].uri};
         const finalImage = await CompressedImage.compress(source.uri);
         const base64 = await RNFS.readFile(finalImage, 'base64');
-        console.log(base64, 'finalCamera');
+        // console.log(base64, 'finalCamera');
         setPhoto(source);
         setAllPhotos(prev => [...prev, {source: source.uri, base64}]);
         setParticularObj(prevState => {
@@ -111,7 +111,7 @@ const File = ({metaData, setParticularObj}) => {
         const source = {uri: response.assets[0].uri};
         const finalImage = await CompressedImage.compress(source.uri);
         const base64 = await RNFS.readFile(finalImage, 'base64');
-        console.log(source, 'finalCamera');
+        // console.log(source, 'finalCamera');
         setPhoto(source);
         setAllPhotos(prev => [...prev, {source: source.uri, base64}]);
         setParticularObj(prevState => {

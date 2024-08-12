@@ -18,6 +18,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   setCurrentTab,
   setFinalSection,
+  setSubmitTabStatus,
   setValidation,
 } from '../../Redux/features/GlobalSlice';
 
@@ -65,6 +66,9 @@ const Final = () => {
   }, []);
 
   const onPressHandler = async () => {
+    dispatch(
+      setSubmitTabStatus({tabName: currentTabName, loadingStatus: true}),
+    );
     let userDetails = await AsyncStorage.getItem('user');
     const parsedUserId = JSON.parse(userDetails).id;
     // return;
@@ -97,7 +101,15 @@ const Final = () => {
       if (res.data.code === 200) {
         Alert.alert('Unificars Alert', res.data.message);
         dispatch(setFinalSection({key: res.data.name, value: true}));
+
+        dispatch(
+          setSubmitTabStatus({tabName: currentTabName, loadingStatus: false}),
+        );
       }
+
+      dispatch(
+        setSubmitTabStatus({tabName: currentTabName, loadingStatus: false}),
+      );
     }
   };
 
