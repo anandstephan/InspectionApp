@@ -66,9 +66,9 @@ const Engine = () => {
   }, []);
 
   const onPressHandler = async () => {
-    dispatch(
-      setSubmitTabStatus({tabName: currentTabName, loadingStatus: true}),
-    );
+    // dispatch(
+    //   setSubmitTabStatus({tabName: currentTabName, loadingStatus: true}),
+    // );
     let userDetails = await AsyncStorage.getItem('user');
     const parsedUserId = JSON.parse(userDetails).id;
     // return;
@@ -101,15 +101,15 @@ const Engine = () => {
       if (res.data.code === 200) {
         Alert.alert('Unificars Alert', res.data.message);
         dispatch(setEngineSection({key: res.data.name, value: true}));
-        dispatch(
-          setSubmitTabStatus({tabName: currentTabName, loadingStatus: false}),
-        );
+        // dispatch(
+        //   setSubmitTabStatus({tabName: currentTabName, loadingStatus: false}),
+        // );
       }
     }
 
-    dispatch(
-      setSubmitTabStatus({tabName: currentTabName, loadingStatus: false}),
-    );
+    // dispatch(
+    //   setSubmitTabStatus({tabName: currentTabName, loadingStatus: false}),
+    // );
   };
 
   return particularObj !== null ? (

@@ -6,12 +6,12 @@ import {useSelector} from 'react-redux';
 const VerticalScroll = ({data, setParticularObj}) => {
   const currentTabName = useSelector(s => s.global.currentTab);
   const loadingStatusOfTab = useSelector(s => s.global.submitTabStatus);
-  console.log(
-    'TabName',
-    currentTabName,
-    loadingStatusOfTab,
-    loadingStatusOfTab[currentTabName],
-  );
+  // console.log(
+  //   'TabName',
+  //   currentTabName,
+  //   loadingStatusOfTab,
+  //   loadingStatusOfTab[currentTabName],
+  // );
 
   return data === null ? (
     <ActivityIndicator size={'large'} />

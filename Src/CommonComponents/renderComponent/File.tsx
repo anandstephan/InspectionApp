@@ -17,6 +17,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {deleteValidationKey} from '../../Redux/features/GlobalSlice';
 
 const File = ({metaData, setParticularObj}) => {
+  console.log('====PIc', metaData.value);
   const [photo, setPhoto] = useState(null);
   const [allPhotos, setAllPhotos] = useState(metaData.value);
   const [isModalVisible, setModalVisible] = useState(false);

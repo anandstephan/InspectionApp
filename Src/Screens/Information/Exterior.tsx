@@ -71,6 +71,7 @@ const Exterior = () => {
     dispatch(
       setSubmitTabStatus({tabName: currentTabName, loadingStatus: true}),
     );
+
     let userDetails = await AsyncStorage.getItem('user');
     const parsedUserId = JSON.parse(userDetails).id;
     // return;

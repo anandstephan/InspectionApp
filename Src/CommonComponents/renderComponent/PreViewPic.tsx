@@ -1,27 +1,29 @@
 import React from 'react';
 import {View, Image, StyleSheet, Pressable} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 const PreViewPic = ({data, onDelete, onImagePress}) => {
   return (
     <View style={styles.container}>
-      {data.map((item, idx) => {
-        console.log('===', item);
-        return (
-          <View key={idx} style={styles.imageContainer}>
-            <Pressable onPress={() => onImagePress(item)}>
-              <Image
-                source={{uri: item.source === undefined ? item : item.source}}
-                style={styles.image}
-              />
-            </Pressable>
-            <Pressable style={styles.deleteIcon} onPress={() => onDelete(item)}>
-              <Entypo name="cross" size={24} color="red" />
-            </Pressable>
-          </View>
-        );
-      })}
+      {data.map((item, idx) => (
+        <View key={idx} style={styles.imageContainer}>
+          <Pressable onPress={() => onImagePress(item)}>
+            <Image
+              source={{
+                uri: item.source
+                  ? item.source
+                  : item.startsWith('data:image/')
+                  ? item
+                  : `data:image/png;base64,${item}`,
+              }}
+              style={styles.image}
+            />
+          </Pressable>
+          <Pressable style={styles.deleteIcon} onPress={() => onDelete(item)}>
+            <Entypo name="cross" size={24} color="red" />
+          </Pressable>
+        </View>
+      ))}
     </View>
   );
 };
