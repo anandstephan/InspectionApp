@@ -67,7 +67,7 @@ export const allInspection = async (id, status) => {
         status: status,
       },
     );
-    // console.log("for res ",status," =>",response.data.data);
+    console.log('for res ', status, ' =>', response.data.data);
     // console.log(" obj =>",obj)
 
     // dispatch(setBadges(obj));

@@ -7,6 +7,7 @@ import {
   Modal,
   Image,
   Animated,
+  Alert,
 } from 'react-native';
 import PreViewPic from './PreViewPic';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -17,7 +18,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {deleteValidationKey} from '../../Redux/features/GlobalSlice';
 
 const File = ({metaData, setParticularObj}) => {
-  console.log('====PIc', metaData.value);
   const [photo, setPhoto] = useState(null);
   const [allPhotos, setAllPhotos] = useState(metaData.value);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -61,6 +61,16 @@ const File = ({metaData, setParticularObj}) => {
   }, [validationObj]);
 
   const openCamera = () => {
+    if (
+      (metaData.name == 'front_main' && metaData.value.length >= 1) ||
+      (metaData.name == 'front_left' && metaData.value.length >= 1) ||
+      (metaData.name == 'rear_main' && metaData.value.length >= 1) ||
+      (metaData.name == 'rear_right' && metaData.value.length >= 1)
+    ) {
+      Alert.alert('Unificars Alert', "You can't upload this section");
+      return;
+    }
+
     const options = {
       mediaType: 'photo',
       saveToPhotos: true,
@@ -98,6 +108,16 @@ const File = ({metaData, setParticularObj}) => {
   };
 
   const openGallery = () => {
+    if (
+      (metaData.name == 'front_main' && metaData.value.length >= 1) ||
+      (metaData.name == 'front_left' && metaData.value.length >= 1) ||
+      (metaData.name == 'rear_main' && metaData.value.length >= 1) ||
+      (metaData.name == 'rear_right' && metaData.value.length >= 1)
+    ) {
+      Alert.alert('Unificars Alert', "You can't upload this section");
+      return;
+    }
+
     const options = {
       mediaType: 'photo',
       includeBase64: true,

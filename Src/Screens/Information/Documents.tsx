@@ -80,6 +80,7 @@ const Documents = () => {
     dispatch(
       setSubmitTabStatus({tabName: currentTabName, loadingStatus: true}),
     );
+
     // console.log(particularObj);
     let userDetails = await AsyncStorage.getItem('user');
     const parsedUserId = JSON.parse(userDetails).id;
@@ -149,7 +150,7 @@ const Documents = () => {
         />
       </View>
 
-      <ScrollView style={{height: Dimensions.get('screen').height / 1.6}}>
+      <ScrollView style={{height: Dimensions.get('screen').height / 1.7}}>
         <VerticalScroll
           data={particularObj}
           setParticularObj={setParticularObj}

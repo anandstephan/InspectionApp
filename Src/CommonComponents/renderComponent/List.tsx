@@ -95,7 +95,6 @@ const List = ({metaData, setParticularObj}) => {
 
   useEffect(() => {
     if (foundOrNot !== -1) {
-      console.log('yeh chal');
       setApiValue(metaData.placeholder + ': ' + carFetchData[metaData.name]);
       onChangeHandler(carFetchData[metaData.name + '==']);
     }

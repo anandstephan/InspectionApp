@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {StyleSheet, TextInput, Animated} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteValidationKey} from '../../Redux/features/GlobalSlice';
@@ -7,8 +7,8 @@ const Input = ({metaData, setParticularObj, editable}) => {
   const carFetchData = useSelector(s => s.global.carFetchData);
   const validationObj = useSelector(s => s.global.validation);
   const dispatch = useDispatch();
-  const [inputValue, setInputValue] = useState(metaData.value);
-
+  const inputValueRef = useRef(metaData.placeholder + ': ' + metaData.value);
+  const textInputRef = useRef(null);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
 
   const handleShakeAnimation = () => {
@@ -44,13 +44,19 @@ const Input = ({metaData, setParticularObj, editable}) => {
 
   useEffect(() => {
     if (carFetchData && carFetchData[metaData.name] !== undefined) {
-      setInputValue(carFetchData[metaData.name]);
-      onInputChangeHandler(carFetchData[metaData.name]);
+      const newValue =
+        metaData.placeholder + ' : ' + carFetchData[metaData.name];
+      console.log('nv', newValue);
+      inputValueRef.current = newValue;
+      // onInputChangeHandler(carFetchData[metaData.name]);
+      textInputRef.current.setNativeProps({text: newValue});
     }
   }, [carFetchData]);
 
   const onInputChangeHandler = text => {
-    setInputValue(text);
+    inputValueRef.current = text;
+    textInputRef.current.setNativeProps({text});
+
     setParticularObj(prevState => {
       const updatedSubfields = prevState.subfeilds.map(subfield => {
         if (subfield.name === metaData.name) {
@@ -68,6 +74,7 @@ const Input = ({metaData, setParticularObj, editable}) => {
   return (
     <Animated.View style={{transform: [{translateX: shakeAnimation}]}}>
       <TextInput
+        ref={textInputRef}
         placeholderTextColor={colorName}
         editable={editable}
         placeholder={metaData.placeholder}
@@ -78,7 +85,7 @@ const Input = ({metaData, setParticularObj, editable}) => {
             borderColor: colorName,
           },
         ]}
-        value={inputValue}
+        defaultValue={inputValueRef.current}
       />
     </Animated.View>
   );

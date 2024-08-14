@@ -287,8 +287,6 @@ export default function HomeScreen({leads}) {
               ]}
               onPress={
                 async () => {
-                  console.log('kkkaaa');
-                  console.log('kkkk', lead.custmer_mobile);
                   openPhoneDialer(lead.custmer_mobile);
                 }
 

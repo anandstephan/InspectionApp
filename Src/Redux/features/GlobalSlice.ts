@@ -93,12 +93,12 @@ export const globalSlice = createSlice({
     },
     setSubmitTabStatus: (state, action) => {
       const {tabName, loadingStatus} = action.payload;
-      console.log('Previous State:', state.submitTabStatus);
+      // console.log('Previous State:', state.submitTabStatus);
       state.submitTabStatus = {
         ...state.submitTabStatus,
         [tabName]: loadingStatus,
       };
-      console.log('Next State:', state.submitTabStatus);
+      // console.log('Next State:', state.submitTabStatus);
     },
   },
 });
