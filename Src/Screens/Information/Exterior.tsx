@@ -68,6 +68,11 @@ const Exterior = () => {
   }, []);
 
   const onPressHandler = async () => {
+    if (exteriorSection[currentTabName]) {
+      // check this section upload twice or not
+      Alert.alert('Unificars Alert', "You can't upload this section twice");
+      return;
+    }
     dispatch(
       setSubmitTabStatus({tabName: currentTabName, loadingStatus: true}),
     );
