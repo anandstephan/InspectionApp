@@ -251,7 +251,7 @@ export const openPhoneDialer = async number => {
   // Linking.openURL(`tel:${number}`);
   // setCallLoading(true);
   let userDetails = await AsyncStorage.getItem('user');
-  console.log('===><===', JSON.parse(userDetails).phone);
+  // console.log('===><===', JSON.parse(userDetails).phone);
   let cJPhoneNumber = JSON.parse(userDetails).phone;
   console.log('==CJ', cJPhoneNumber);
 

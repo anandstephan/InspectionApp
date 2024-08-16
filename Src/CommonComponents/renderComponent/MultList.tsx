@@ -125,7 +125,6 @@ const MultiList = ({metaData, setParticularObj}) => {
   );
 
   useEffect(() => {
-    console.log('===>', metaData.value, metaData.name);
     if (metaData?.value?.length !== 0) {
       console.log('changeName', metaData.name, metaData.value);
       // setValue([metaData.value]);

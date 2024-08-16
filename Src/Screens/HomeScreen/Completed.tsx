@@ -26,7 +26,7 @@ const Completed = () => {
     getData();
   }, []);
   useEffect(() => {
-    if (leads.length !== 0) {
+    if (leads?.length !== 0) {
       console.log(search.length);
 
       const filter = leads.filter(lead =>
