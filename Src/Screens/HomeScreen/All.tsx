@@ -19,7 +19,7 @@ const All = () => {
       const user = JSON.parse(res);
 
       const res1 = await allInspection(user.id, 'all');
-      console.log('===>res1', res1);
+      // console.log('===>res1', res1);
       setLeads(res1?.data?.data);
       setPreserveLead(res1?.data?.data);
       disptach(setAllCount(res1?.data?.data?.length));

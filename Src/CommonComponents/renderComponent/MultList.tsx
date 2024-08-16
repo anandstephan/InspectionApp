@@ -1,24 +1,40 @@
 import React, {useState, useMemo, useEffect, useRef} from 'react';
-import {View, StyleSheet, Animated} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Animated,
+  ScrollView,
+  Text,
+  Pressable,
+} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {useDispatch, useSelector} from 'react-redux';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
   deleteValidationKey,
   setValidation,
 } from '../../Redux/features/GlobalSlice';
 
-const List = ({metaData, setParticularObj}) => {
+const MultiList = ({metaData, setParticularObj}) => {
   const validationObj = useSelector(s => s.global.validation);
-
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(metaData.value);
+  const [value, setValue] = useState(
+    metaData.value.includes(',')
+      ? metaData.value.split(',')
+      : [metaData.value] || [],
+  );
 
   const [items, setItems] = useState(
     metaData.elements.map(item => {
       return {label: item, value: item};
     }),
   );
+
+  const removeBadgeHandler = text => {
+    const newArr = value.filter(val => val != text);
+    setValue(newArr);
+  };
 
   // State to track the height of the dropdown
   const [dropdownHeight, setDropdownHeight] = useState(40);
@@ -67,11 +83,32 @@ const List = ({metaData, setParticularObj}) => {
       : null;
   }, [validationObj]);
 
+  //   const onChangeHandler = val => {
+  //     setParticularObj(prevState => {
+  //       const updatedSubfields = prevState.subfeilds.map(subfield => {
+  //         if (subfield.name === metaData?.name) {
+  //           const lastValue = subfield.value;
+  //           console.log('===', lastValue);
+  //           const newVal = [lastValue];
+  //           console.log('Philips', newVal);
+  //           //   lastValue.push(val);
+  //           return {...subfield, value: newVal.filter(item => item.length > 1)};
+  //         }
+  //         return subfield;
+  //       });
+  //       dispatch(deleteValidationKey());
+  //       return {...prevState, subfeilds: updatedSubfields};
+  //     });
+  //   };
+
   const onChangeHandler = val => {
     setParticularObj(prevState => {
       const updatedSubfields = prevState.subfeilds.map(subfield => {
         if (subfield.name === metaData?.name) {
-          return {...subfield, value: val?.value};
+          const newVal = Array.isArray(val)
+            ? val.filter(item => item.length > 1)
+            : [val];
+          return {...subfield, value: newVal};
         }
         return subfield;
       });
@@ -88,9 +125,11 @@ const List = ({metaData, setParticularObj}) => {
   );
 
   useEffect(() => {
+    console.log('===>', metaData.value, metaData.name);
     if (metaData?.value?.length !== 0) {
-      // console.log('changeName', metaData.name, metaData.value);
-      onChangeHandler({value: metaData.value});
+      console.log('changeName', metaData.name, metaData.value);
+      // setValue([metaData.value]);
+      //   onChangeHandler({value: metaData.value});
     }
   }, []);
 
@@ -112,6 +151,22 @@ const List = ({metaData, setParticularObj}) => {
 
   return (
     <Animated.View style={{transform: [{translateX: shakeAnimation}]}}>
+      <ScrollView horizontal>
+        {Array.isArray(value)
+          ? value?.map((item, idx) => (
+              <Pressable onPress={() => removeBadgeHandler(item)} key={idx}>
+                <View style={styles.badge}>
+                  <Text style={{color: 'white'}}>{item}</Text>
+                  <MaterialIcons
+                    name="close"
+                    size={20}
+                    style={{color: 'white', marginHorizontal: 10}}
+                  />
+                </View>
+              </Pressable>
+            ))
+          : null}
+      </ScrollView>
       <View
         style={[
           styles.container,
@@ -161,6 +216,7 @@ const List = ({metaData, setParticularObj}) => {
           ]}
           selectedItemLabelStyle={styles.selectedItem}
           onSelectItem={val => onChangeHandler(val)}
+          multiple={true}
         />
       </View>
     </Animated.View>
@@ -185,6 +241,14 @@ const styles = StyleSheet.create({
   selectedItem: {
     color: 'blue',
   },
+  badge: {
+    backgroundColor: 'gray',
+    padding: 5,
+    margin: 5,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
-export default List;
+export default MultiList;

@@ -3,6 +3,7 @@ import File from './File';
 import List from './List';
 import TextArea from './TextArea';
 import Video from './CustomVideo';
+import MultiList from './MultList';
 
 const Output = ({data, setParticularObj}) => {
   switch (data.type) {
@@ -29,7 +30,7 @@ const Output = ({data, setParticularObj}) => {
         />
       );
     case 'multipleselect':
-      return <List metaData={data} setParticularObj={setParticularObj} />;
+      return <MultiList metaData={data} setParticularObj={setParticularObj} />;
     case 'video':
       return <Video metaData={data} setParticularObj={setParticularObj} />;
     default:

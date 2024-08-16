@@ -17,6 +17,7 @@ function InformationTabNavigator() {
   const exteriorSection = useSelector(s => s.global.exteriorSection);
   const interiorSection = useSelector(s => s.global.interiorSection);
   const finalSection = useSelector(s => s.global.finalSection);
+
   const Tab = createMaterialTopTabNavigator();
 
   return (
@@ -62,6 +63,7 @@ function InformationTabNavigator() {
               // Prevent default action
               e.preventDefault();
               let flag = false;
+
               let ar = Object.keys(docSection);
               for (let i = 0; i < ar.length; i++) {
                 if (docSection[ar[i]] == false) {
@@ -69,7 +71,8 @@ function InformationTabNavigator() {
                   break;
                 }
               }
-              if (flag) {
+              // if (flag || ar.length === 0) {
+              if (false) {
                 Alert.alert(
                   'Unificars Alert',
                   'Please Fill all the Fields in this section',
@@ -90,13 +93,15 @@ function InformationTabNavigator() {
               e.preventDefault();
               let flag = false;
               let ar = Object.keys(engineSection);
+              console.log('==>', ar);
               for (let i = 0; i < ar.length; i++) {
                 if (engineSection[ar[i]] == false) {
                   flag = true;
                   break;
                 }
               }
-              if (flag) {
+              // if (flag || ar.length === 0) {
+              if (false) {
                 Alert.alert(
                   'Unificars Alert',
                   'Please Fill all the Fields in this section',
@@ -123,7 +128,8 @@ function InformationTabNavigator() {
                   break;
                 }
               }
-              if (flag) {
+              // if (flag || ar.length === 0) {
+              if (false) {
                 Alert.alert(
                   'Unificars Alert',
                   'Please Fill all the Fields in this section',
@@ -150,7 +156,8 @@ function InformationTabNavigator() {
                   break;
                 }
               }
-              if (flag) {
+              // if (flag || ar.length === 0) {
+              if (false) {
                 Alert.alert(
                   'Unificars Alert',
                   'Please Fill all the Fields in this section',
