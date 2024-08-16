@@ -1,6 +1,13 @@
 import React, {useState} from 'react';
-
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Alert,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Keyboard, // Import Keyboard module
+} from 'react-native';
 import {submitCarNumber} from '../Api/Api';
 import {setCarFetchData} from '../Redux/features/GlobalSlice';
 import {useDispatch} from 'react-redux';
@@ -10,28 +17,35 @@ const SubmitHandler = () => {
   const dispatch = useDispatch();
 
   const onBtnHandler = async num => {
-    const res = await submitCarNumber(num);
-
-    let keyMappings = {
-      manufacturing_date: 'vehicleManufacturingMonthYear',
-      registration_date: 'regDate',
-      rto: 'regAuthority',
-      ownership: 'ownerCount',
-      registration_number: 'regNo',
-      fitness_upto: 'rcExpiryDate',
-      varient: 'model',
-      insurance_availibility: 'vehicleInsuranceUpto',
-      // chassis_number: "chassis",
-    };
-    const originalObject = res.result.data;
-    const mappedObject: any = {};
-
-    for (const [newKey, originalKey] of Object.entries(keyMappings)) {
-      if (newKey === 'manufacturing_date') {
-      }
-      mappedObject[newKey] = originalObject[originalKey];
+    if (num.length === 0) {
+      Alert.alert('Unificars Alert', 'Please Enter Some Number');
+      return;
     }
-    dispatch(setCarFetchData(mappedObject));
+
+    Keyboard.dismiss(); // Close the keyboard
+
+    const res = await submitCarNumber(num);
+    if (res.code == 200) {
+      let keyMappings = {
+        manufacturing_date: 'vehicleManufacturingMonthYear',
+        registration_date: 'regDate',
+        rto: 'regAuthority',
+        ownership: 'ownerCount',
+        registration_number: 'regNo',
+        fitness_upto: 'rcExpiryDate',
+        varient: 'model',
+        insurance_availibility: 'vehicleInsuranceUpto',
+      };
+      const originalObject = res.result.data;
+      const mappedObject = {};
+
+      for (const [newKey, originalKey] of Object.entries(keyMappings)) {
+        mappedObject[newKey] = originalObject[originalKey];
+      }
+      dispatch(setCarFetchData(mappedObject));
+    } else {
+      Alert.alert('Unificars Alert', res.message);
+    }
   };
 
   return (
@@ -40,7 +54,8 @@ const SubmitHandler = () => {
         style={styles.input}
         placeholder="Enter the Car Number..."
         placeholderTextColor={'blue'}
-        onChangeText={val => setNumber(val)}
+        value={number.toUpperCase()} // Ensure the input value is always in uppercase
+        onChangeText={val => setNumber(val.toUpperCase())}
       />
       <Pressable style={styles.btn} onPress={() => onBtnHandler(number)}>
         <Text style={styles.btnTxt}>Submit</Text>
