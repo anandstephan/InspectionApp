@@ -116,101 +116,102 @@ export const getUserProfileDetails = async ({id}) => {
 
 export const submitCarNumber = async carNumber => {
   try {
-    if (carNumber.length === 13) {
-      console.log('====', carNumber);
-      const number = carNumber.replace(/\s/g, ''); // Remove spaces from the car number
-      // console.log(number, "number");
+    // if (carNumber.length === 13) {
+    console.log('====', carNumber);
+    const number = carNumber.replace(/\s/g, ''); // Remove spaces from the car number
+    // console.log(number, "number");
 
-      const response = await axios.post(
-        'https://api.invincibleocean.com/invincible/vehicleRcV6',
-        {
-          vehicleNumber: '' + number,
+    const response = await axios.post(
+      'https://api.invincibleocean.com/invincible/vehicleRcV6',
+      {
+        vehicleNumber: '' + number,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          secretKey:
+            'MeCeLbdwp5KCuFuuCcQIuUKDTw5xyHPJT91zovHRmA5d6jBxAficW5kIP1DGvhNXL',
+          clientId:
+            'd0d3422ec6d0ae9e4ed989dda9425204:b94cec676f7fb97bf04173cc262aeb9f',
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            secretKey:
-              'MeCeLbdwp5KCuFuuCcQIuUKDTw5xyHPJT91zovHRmA5d6jBxAficW5kIP1DGvhNXL',
-            clientId:
-              'd0d3422ec6d0ae9e4ed989dda9425204:b94cec676f7fb97bf04173cc262aeb9f',
-          },
-        },
-      );
+      },
+    );
 
-      // const response = {
-      //   code: 200,
-      //   result: {
-      //     data: {
-      //       regNo: 'DL6SBC8723',
-      //       chassis: 'ME4JF50AJKW230060',
-      //       engine: 'JF50EW0229487',
-      //       vehicleManufacturerName: 'HONDA MOTORCYCLE AND SCOOTER INDIA (P) LTD',
-      //       model: 'ACTIVA 5G',
-      //       vehicleColour: 'GRAY',
-      //       type: 'PETROL',
-      //       normsType: 'BHARAT STAGE IV',
-      //       bodyType: 'FULLY BUILD',
-      //       ownerCount: 1,
-      //       owner: 'SAIYAD TALIB ALI',
-      //       ownerFatherName: 'ASIF ALI',
-      //       mobileNumber: '',
-      //       status: 'Y',
-      //       statusAsOn: '05-Aug-2024',
-      //       regAuthority: 'SARAI KALE KHAN',
-      //       regDate: '01-Oct-2019',
-      //       vehicleManufacturingMonthYear: '9/2019',
-      //       rcExpiryDate: '30-Sep-2034',
-      //       vehicleTaxUpto: '',
-      //       vehicleInsuranceCompanyName: 'NA',
-      //       vehicleInsuranceUpto: '29-Sep-2024',
-      //       vehicleInsurancePolicyNumber: '/00/005230',
-      //       rcFinancer: 'SHRIRAM CITY UNION FINANCE LTD',
-      //       presentAddress:
-      //         'J-33 J-EXTENSION STREET NO-8 LAXMI NAGAR  93 East DL Delhi 110092',
-      //       permanentAddress:
-      //         'J-33 J-EXTENSION STREET NO-8 LAXMI NAGAR  93 East DL Delhi 110092',
-      //       vehicleCubicCapacity: 109.19,
-      //       grossVehicleWeight: 279,
-      //       unladenWeight: 109,
-      //       vehicleCategory: '2WN',
-      //       rcStandardCap: '',
-      //       vehicleCylindersNo: 1,
-      //       vehicleSeatCapacity: 2,
-      //       vehicleSleeperCapacity: '',
-      //       vehicleStandingCapacity: '',
-      //       wheelbase: 1238,
-      //       vehicleNumber: 'DL6SBC8723',
-      //       puccNumber: 'DL01300110043136',
-      //       puccUpto: '27-Jun-2024',
-      //       blacklistStatus: 'NA',
-      //       blacklistDetails: [],
-      //       permitIssueDate: null,
-      //       permitNumber: null,
-      //       permitType: null,
-      //       permitValidFrom: null,
-      //       permitValidUpto: null,
-      //       nonUseStatus: null,
-      //       nonUseFrom: null,
-      //       nonUseTo: null,
-      //       nationalPermitNumber: null,
-      //       nationalPermitUpto: null,
-      //       nationalPermitIssuedBy: null,
-      //       isCommercial: false,
-      //       nocDetails: null,
-      //       dbResult: false,
-      //       partialData: true,
-      //       mmvResponse: null,
-      //       financed: true,
-      //       class: 'M-Cycle/Scooter',
-      //     },
-      //   },
-      // };
-      // return Promise.resolve(response);
-      // console.log('Api response', response.data);
-      return response.data;
-    } else {
-      console.error('Invalid car number length');
-    }
+    // const response = {
+    //   code: 200,
+    //   result: {
+    //     data: {
+    //       regNo: 'DL6SBC8723',
+    //       chassis: 'ME4JF50AJKW230060',
+    //       engine: 'JF50EW0229487',
+    //       vehicleManufacturerName: 'HONDA MOTORCYCLE AND SCOOTER INDIA (P) LTD',
+    //       model: 'ACTIVA 5G',
+    //       vehicleColour: 'GRAY',
+    //       type: 'PETROL',
+    //       normsType: 'BHARAT STAGE IV',
+    //       bodyType: 'FULLY BUILD',
+    //       ownerCount: 1,
+    //       owner: 'SAIYAD TALIB ALI',
+    //       ownerFatherName: 'ASIF ALI',
+    //       mobileNumber: '',
+    //       status: 'Y',
+    //       statusAsOn: '05-Aug-2024',
+    //       regAuthority: 'SARAI KALE KHAN',
+    //       regDate: '01-Oct-2019',
+    //       vehicleManufacturingMonthYear: '9/2019',
+    //       rcExpiryDate: '30-Sep-2034',
+    //       vehicleTaxUpto: '',
+    //       vehicleInsuranceCompanyName: 'NA',
+    //       vehicleInsuranceUpto: '29-Sep-2024',
+    //       vehicleInsurancePolicyNumber: '/00/005230',
+    //       rcFinancer: 'SHRIRAM CITY UNION FINANCE LTD',
+    //       presentAddress:
+    //         'J-33 J-EXTENSION STREET NO-8 LAXMI NAGAR  93 East DL Delhi 110092',
+    //       permanentAddress:
+    //         'J-33 J-EXTENSION STREET NO-8 LAXMI NAGAR  93 East DL Delhi 110092',
+    //       vehicleCubicCapacity: 109.19,
+    //       grossVehicleWeight: 279,
+    //       unladenWeight: 109,
+    //       vehicleCategory: '2WN',
+    //       rcStandardCap: '',
+    //       vehicleCylindersNo: 1,
+    //       vehicleSeatCapacity: 2,
+    //       vehicleSleeperCapacity: '',
+    //       vehicleStandingCapacity: '',
+    //       wheelbase: 1238,
+    //       vehicleNumber: 'DL6SBC8723',
+    //       puccNumber: 'DL01300110043136',
+    //       puccUpto: '27-Jun-2024',
+    //       blacklistStatus: 'NA',
+    //       blacklistDetails: [],
+    //       permitIssueDate: null,
+    //       permitNumber: null,
+    //       permitType: null,
+    //       permitValidFrom: null,
+    //       permitValidUpto: null,
+    //       nonUseStatus: null,
+    //       nonUseFrom: null,
+    //       nonUseTo: null,
+    //       nationalPermitNumber: null,
+    //       nationalPermitUpto: null,
+    //       nationalPermitIssuedBy: null,
+    //       isCommercial: false,
+    //       nocDetails: null,
+    //       dbResult: false,
+    //       partialData: true,
+    //       mmvResponse: null,
+    //       financed: true,
+    //       class: 'M-Cycle/Scooter',
+    //     },
+    //   },
+    // };
+    // return Promise.resolve(response);
+    // console.log('Api response', response.data);
+    console.log('kkkk', response);
+    return response.data;
+    // } else {
+    //   console.error('Invalid car number length');
+    // }
   } catch (error) {
     console.log(error);
   }

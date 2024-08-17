@@ -25,6 +25,7 @@ const SubmitHandler = () => {
     Keyboard.dismiss(); // Close the keyboard
 
     const res = await submitCarNumber(num);
+    console.log('==', res);
     if (res.code == 200) {
       let keyMappings = {
         manufacturing_date: 'vehicleManufacturingMonthYear',

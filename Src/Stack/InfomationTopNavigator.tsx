@@ -55,35 +55,6 @@ function InformationTabNavigator() {
           initialParams={{leadId: leadId}}
         />
         <Tab.Screen
-          name="Engine"
-          component={Engine}
-          initialParams={{leadId: leadId}}
-          listeners={({navigation}) => ({
-            tabPress: e => {
-              // Prevent default action
-              e.preventDefault();
-              let flag = false;
-
-              let ar = Object.keys(docSection);
-              for (let i = 0; i < ar.length; i++) {
-                if (docSection[ar[i]] == false) {
-                  flag = true;
-                  break;
-                }
-              }
-              // if (flag || ar.length === 0) {
-              if (false) {
-                Alert.alert(
-                  'Unificars Alert',
-                  'Please Fill all the Fields in this section',
-                );
-              } else {
-                navigation.navigate('Engine');
-              }
-            },
-          })}
-        />
-        <Tab.Screen
           name="Exterior"
           component={Exterior}
           initialParams={{leadId: leadId}}
@@ -92,10 +63,10 @@ function InformationTabNavigator() {
               // Prevent default action
               e.preventDefault();
               let flag = false;
-              let ar = Object.keys(engineSection);
+              let ar = Object.keys(docSection);
               console.log('==>', ar);
               for (let i = 0; i < ar.length; i++) {
-                if (engineSection[ar[i]] == false) {
+                if (docSection[ar[i]] == false) {
                   flag = true;
                   break;
                 }
@@ -140,6 +111,36 @@ function InformationTabNavigator() {
             },
           })}
         />
+        <Tab.Screen
+          name="Engine"
+          component={Engine}
+          initialParams={{leadId: leadId}}
+          listeners={({navigation}) => ({
+            tabPress: e => {
+              // Prevent default action
+              e.preventDefault();
+              let flag = false;
+
+              let ar = Object.keys(docSection);
+              for (let i = 0; i < ar.length; i++) {
+                if (docSection[ar[i]] == false) {
+                  flag = true;
+                  break;
+                }
+              }
+              // if (flag || ar.length === 0) {
+              if (false) {
+                Alert.alert(
+                  'Unificars Alert',
+                  'Please Fill all the Fields in this section',
+                );
+              } else {
+                navigation.navigate('Engine');
+              }
+            },
+          })}
+        />
+
         <Tab.Screen
           name="Final"
           component={Final}

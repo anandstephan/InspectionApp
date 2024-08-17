@@ -156,7 +156,7 @@ const Documents = () => {
         />
       </View>
 
-      <ScrollView style={{height: Dimensions.get('screen').height / 1.7}}>
+      <ScrollView style={{height: Dimensions.get('screen').height / 1.8}}>
         <VerticalScroll
           data={particularObj}
           setParticularObj={setParticularObj}
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    marginTop: -10,
+    // marginTop: -10,
   },
   loadingContainer: {
     flex: 1,
