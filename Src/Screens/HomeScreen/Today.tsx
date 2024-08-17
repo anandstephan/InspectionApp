@@ -43,8 +43,12 @@ const Today = () => {
   }, [search]);
   return (
     <View style={{padding: '2%'}}>
+<<<<<<< HEAD
       <Input setSearch={setSearch} />
       <HomeScreen leads={leads} />
+=======
+      <HomeScreen nav={'today'} />
+>>>>>>> refs/remotes/origin/main
     </View>
   );
 };

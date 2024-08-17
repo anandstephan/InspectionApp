@@ -37,7 +37,6 @@ const Login = ({}) => {
   };
 
   const handleClickPass = event => {
-    // event.persist();
     const passwordValue = event.nativeEvent.text;
     setPassword(passwordValue);
     setError(prev => ({...prev, password: ''}));

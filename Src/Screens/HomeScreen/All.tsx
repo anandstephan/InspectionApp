@@ -45,8 +45,12 @@ const All = () => {
   }, [search]);
   return (
     <View style={{padding: '2%'}}>
+<<<<<<< HEAD
       <Input setSearch={setSearch} />
       <HomeScreen leads={leads} />
+=======
+      <HomeScreen nav={'all'} />
+>>>>>>> refs/remotes/origin/main
     </View>
   );
 };

@@ -43,8 +43,12 @@ const Miss = () => {
   }, [search]);
   return (
     <View style={{padding: '2%'}}>
+<<<<<<< HEAD
       <Input setSearch={setSearch} />
       <HomeScreen leads={leads} />
+=======
+      <HomeScreen nav={'miss'} />
+>>>>>>> refs/remotes/origin/main
     </View>
   );
 };
